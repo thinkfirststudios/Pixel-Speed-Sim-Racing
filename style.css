@@ -54,21 +54,21 @@ body::before{
   content:"";
   position:fixed;inset:0;z-index:-3;
   background:linear-gradient(178deg,
-    #04090F 0%,
-    #071522 18%,
-    #0B2540 44%,
-    #0D2E50 62%,
-    #071624 84%,
-    #04090F 100%);
+    #03060A 0%,
+    #060D15 18%,
+    #0A1927 44%,
+    #0C2035 62%,
+    #061019 84%,
+    #03060A 100%);
 }
 /* Drifting light field. Injected .aura carries the motion; this is the fallback
    wash so the page still has depth with JS off. */
 .aura{
   position:fixed;inset:-30%;z-index:-2;pointer-events:none;
   background:
-    radial-gradient(28% 24% at 20% 16%, rgba(27,156,224,.42), transparent 66%),
-    radial-gradient(24% 20% at 80% 28%, rgba(79,224,232,.20), transparent 64%),
-    radial-gradient(32% 26% at 60% 84%, rgba(224,27,34,.18), transparent 66%);
+    radial-gradient(28% 24% at 20% 16%, rgba(27,156,224,.24), transparent 66%),
+    radial-gradient(24% 20% at 80% 28%, rgba(79,224,232,.09), transparent 64%),
+    radial-gradient(34% 28% at 62% 82%, rgba(224,72,34,.24), transparent 66%);
   will-change:transform;
   contain:strict;
   animation:auraDrift 38s ease-in-out infinite alternate;
@@ -330,8 +330,8 @@ strong{color:#E6F1FA;font-weight:600}
    reads as one long slab. Panels are lit from above; plain sections stay dark. */
 .sec--panel{
   background:
-    radial-gradient(72% 130% at 50% -18%, rgba(38,132,200,.42), transparent 66%),
-    linear-gradient(168deg,rgba(20,70,118,.62) 0%,rgba(9,26,44,.86) 58%,rgba(6,16,27,.92) 100%);
+    radial-gradient(72% 130% at 50% -18%, rgba(38,132,200,.26), transparent 66%),
+    linear-gradient(168deg,rgba(18,60,100,.44) 0%,rgba(7,20,34,.88) 58%,rgba(4,11,18,.94) 100%);
   border-block:1px solid var(--line-soft);
   box-shadow:inset 0 1px 0 rgba(140,205,245,.16);
 }
@@ -379,7 +379,7 @@ strong{color:#E6F1FA;font-weight:600}
 .hero__photo{
   position:absolute;inset:0;z-index:0;
   width:100%;height:100%;object-fit:cover;
-  filter:saturate(.92) contrast(1.06);
+  filter:saturate(1.04) contrast(1.20);
   /* Held deliberately still. A slow Ken Burns push looked good but re-rasters a
      full-bleed image every frame for the life of the page; the hero already has
      the headline wipe, the streaks and the scroll parallax carrying it. */
@@ -393,17 +393,17 @@ strong{color:#E6F1FA;font-weight:600}
 .hero__media::after{
   content:"";position:absolute;inset:0;z-index:2;
   background:
-    radial-gradient(78% 58% at 72% 26%, rgba(27,156,224,.24), transparent 62%),
+    radial-gradient(70% 54% at 74% 24%, rgba(27,156,224,.12), transparent 64%),
     linear-gradient(96deg,
-      rgba(8,20,33,.72) 0%,
-      rgba(8,20,33,.46) 34%,
-      rgba(8,20,33,.14) 62%,
+      rgba(3,6,10,.74) 0%,
+      rgba(3,6,10,.46) 34%,
+      rgba(3,6,10,.12) 62%,
       transparent 82%),
     linear-gradient(180deg,
-      rgba(10,24,38,.70) 0%,
-      rgba(11,32,57,.55) 34%,
-      rgba(10,24,38,.90) 78%,
-      var(--ink-900) 100%);
+      rgba(3,6,10,.60) 0%,
+      rgba(5,11,18,.34) 34%,
+      rgba(3,6,10,.86) 78%,
+      #03060A 100%);
 }
 @keyframes streak{to{transform:translateX(-96px)}}
 
@@ -746,7 +746,7 @@ strong{color:#E6F1FA;font-weight:600}
 /* ---------- CTA band ---------- */
 .cta{
   position:relative;overflow:hidden;
-  background:linear-gradient(120deg,#0B2039,#123A63 45%,#15558A 100%);
+  background:linear-gradient(120deg,#05090F 0%,#0C2439 45%,#123F63 100%);
   border-block:1px solid var(--line);
   text-align:center;
 }
