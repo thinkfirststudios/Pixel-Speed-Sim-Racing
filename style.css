@@ -200,6 +200,12 @@ strong{color:#E6F1FA;font-weight:600}
 .btn--sm{padding:.72rem 1.25rem;font-size:.88rem}
 .btn--wide{width:100%}
 .btn-row{display:flex;flex-wrap:wrap;gap:.85rem;margin-top:1.9rem}
+/* In the hero, Call Now separates from the booking pair and sits out at the
+   right edge of the frame — booking and browsing together, calling on its own.
+   Only once there is room for it; on a wrapped row it stays in line. */
+@media (min-width:760px){
+  .hero .btn-row .btn--call{margin-left:auto}
+}
 
 .link-arrow{
   font-family:var(--f-disp);font-style:italic;font-weight:700;
