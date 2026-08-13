@@ -48,22 +48,48 @@ body{
   overflow-x:hidden;
 }
 
-/* base blue racing canvas */
+/* Base canvas. Wider value range than a flat navy — near-black at the edges,
+   lit blue through the middle — so sections read as lit rather than uniform. */
 body::before{
   content:"";
-  position:fixed;inset:0;z-index:-2;
-  background:
-    radial-gradient(120% 80% at 78% -10%, rgba(27,156,224,.20), transparent 62%),
-    radial-gradient(90% 60% at 8% 4%, rgba(224,27,34,.12), transparent 60%),
-    linear-gradient(180deg,#0A1826 0%,#0C2137 38%,#123A63 72%,#0A1826 100%);
+  position:fixed;inset:0;z-index:-3;
+  background:linear-gradient(178deg,
+    #04090F 0%,
+    #071522 18%,
+    #0B2540 44%,
+    #0D2E50 62%,
+    #071624 84%,
+    #04090F 100%);
 }
-/* faint carbon weave */
+/* Drifting light field. Injected .aura carries the motion; this is the fallback
+   wash so the page still has depth with JS off. */
+.aura{
+  position:fixed;inset:-30%;z-index:-2;pointer-events:none;
+  background:
+    radial-gradient(28% 24% at 20% 16%, rgba(27,156,224,.42), transparent 66%),
+    radial-gradient(24% 20% at 80% 28%, rgba(79,224,232,.20), transparent 64%),
+    radial-gradient(32% 26% at 60% 84%, rgba(224,27,34,.18), transparent 66%);
+  will-change:transform;
+  contain:strict;
+  animation:auraDrift 38s ease-in-out infinite alternate;
+}
+/* Translate only — no scale. Scaling a viewport-sized gradient layer forces a
+   re-raster every frame; translating one is a compositor-only move. */
+@keyframes auraDrift{
+  0%  {transform:translate3d(-2.5%,-1.5%,0)}
+  50% {transform:translate3d(2.5%,2%,0)}
+  100%{transform:translate3d(-1%,3%,0)}
+}
+/* Film grain + carbon weave. Grain is what stops large flat gradients from
+   banding on cheap panels, and it reads as photographic rather than digital. */
 body::after{
   content:"";
-  position:fixed;inset:0;z-index:-1;pointer-events:none;opacity:.5;
+  position:fixed;inset:0;z-index:-1;pointer-events:none;opacity:.30;
   background-image:
-    repeating-linear-gradient(45deg,rgba(255,255,255,.014) 0 2px,transparent 2px 5px),
+    url("data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20width%3D%27140%27%20height%3D%27140%27%3E%3Cfilter%20id%3D%27n%27%3E%3CfeTurbulence%20type%3D%27fractalNoise%27%20baseFrequency%3D%270.85%27%20numOctaves%3D%273%27%20stitchTiles%3D%27stitch%27%2F%3E%3CfeColorMatrix%20type%3D%27saturate%27%20values%3D%270%27%2F%3E%3C%2Ffilter%3E%3Crect%20width%3D%27140%27%20height%3D%27140%27%20filter%3D%27url%28%23n%29%27%20opacity%3D%270.5%27%2F%3E%3C%2Fsvg%3E"),
+    repeating-linear-gradient(45deg,rgba(255,255,255,.012) 0 2px,transparent 2px 5px),
     repeating-linear-gradient(-45deg,rgba(0,0,0,.10) 0 2px,transparent 2px 5px);
+  background-size:140px 140px, auto, auto;
 }
 
 img{max-width:100%;height:auto;display:block}
@@ -100,10 +126,23 @@ strong{color:#E6F1FA;font-weight:600}
   transform:skewX(-7deg);
   transform-origin:left bottom;
   line-height:.86;
-  letter-spacing:-.005em;
+  letter-spacing:-.012em;
   display:block;
+  /* Lit metal, not flat white: a highlight rakes across the letterforms the way
+     it would across a car's flank. */
+  background:linear-gradient(102deg,#FFFFFF 0%,#E8F4FE 30%,#9FDBFF 46%,#FFFFFF 66%,#DCEBF7 100%);
+  background-size:260% 100%;
+  -webkit-background-clip:text;background-clip:text;
+  color:transparent;
+  -webkit-text-fill-color:transparent;
 }
-.mega em{font-style:normal;color:var(--blue);display:block}
+.mega em{
+  font-style:normal;display:block;
+  background:linear-gradient(102deg,var(--blue) 0%,#37B4EE 26%,var(--cyan) 46%,var(--blue) 68%,#1580BE 100%);
+  background-size:260% 100%;
+  -webkit-background-clip:text;background-clip:text;
+  color:transparent;-webkit-text-fill-color:transparent;
+}
 .txt-stroke{
   color:transparent;
   -webkit-text-stroke:2px rgba(255,255,255,.55);
@@ -178,11 +217,17 @@ strong{color:#E6F1FA;font-weight:600}
 .link-arrow:hover::after{transform:translateX(5px)}
 
 /* ---------- chevron strip (racing divider) ---------- */
+/* The pattern lives on an over-wide child that translates, rather than the strip
+   animating its own background-position — the former composites, the latter
+   repaints a full-width band on every frame. */
 .chevrons{
-  height:24px;width:100%;
+  position:relative;height:24px;width:100%;overflow:hidden;opacity:.9;
+}
+.chevrons::before{
+  content:"";position:absolute;inset:0;width:200%;
   background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='44' height='24' viewBox='0 0 44 24'%3E%3Cpath d='M0 0 L12 12 L0 24 Z' fill='%23F2B300'/%3E%3Cpath d='M17 0 L29 12 L17 24 Z' fill='%23F2B300' opacity='.42'/%3E%3C/svg%3E");
   background-repeat:repeat-x;background-size:auto 100%;
-  opacity:.9;
+  will-change:transform;
   animation:chevrun 1.5s linear infinite;
 }
 .chevrons--thin{height:14px;opacity:.55}
@@ -190,7 +235,7 @@ strong{color:#E6F1FA;font-weight:600}
   -webkit-mask-image:linear-gradient(90deg,transparent,#000 18%,#000 82%,transparent);
   mask-image:linear-gradient(90deg,transparent,#000 18%,#000 82%,transparent);
 }
-@keyframes chevrun{to{background-position:44px 0}}
+@keyframes chevrun{from{transform:translate3d(0,0,0)}to{transform:translate3d(-44px,0,0)}}
 
 /* checkered micro accent */
 .checker{
@@ -274,9 +319,19 @@ strong{color:#E6F1FA;font-weight:600}
 /* the sticky header would otherwise sit on top of an anchored section heading */
 .sec{padding:clamp(3.6rem,7vw,6.4rem) 0;position:relative;scroll-margin-top:88px}
 .sec--tight{padding:clamp(2.6rem,5vw,4.2rem) 0}
+/* Alternating sections need to differ in *value*, not just hue, or the page
+   reads as one long slab. Panels are lit from above; plain sections stay dark. */
 .sec--panel{
-  background:linear-gradient(160deg,rgba(18,58,99,.55),rgba(10,24,38,.72));
+  background:
+    radial-gradient(72% 130% at 50% -18%, rgba(38,132,200,.42), transparent 66%),
+    linear-gradient(168deg,rgba(20,70,118,.62) 0%,rgba(9,26,44,.86) 58%,rgba(6,16,27,.92) 100%);
   border-block:1px solid var(--line-soft);
+  box-shadow:inset 0 1px 0 rgba(140,205,245,.16);
+}
+/* hairline of light along the top edge of a panel */
+.sec--panel::before{
+  content:"";position:absolute;top:0;left:12%;right:12%;height:1px;
+  background:linear-gradient(90deg,transparent,rgba(79,224,232,.55),transparent);
 }
 .sec--angle{
   clip-path:polygon(0 3.2vw,100% 0,100% 100%,0 calc(100% - 3.2vw));
@@ -317,7 +372,12 @@ strong{color:#E6F1FA;font-weight:600}
 .hero__photo{
   position:absolute;inset:0;z-index:0;
   width:100%;height:100%;object-fit:cover;
-  filter:saturate(.92) contrast(1.04);
+  filter:saturate(.92) contrast(1.06);
+  /* Held deliberately still. A slow Ken Burns push looked good but re-rasters a
+     full-bleed image every frame for the life of the page; the hero already has
+     the headline wipe, the streaks and the scroll parallax carrying it. */
+  transform:scale(1.04);
+  transform-origin:62% 55%;
 }
 .hero__media::before{z-index:1}
 /* Scrim lives on the media layer, not on .hero__in — .hero__in is a .wrap, so a
@@ -358,8 +418,41 @@ strong{color:#E6F1FA;font-weight:600}
 .brackets::after{right:0;border-right:3px solid var(--cyan)}
 .brackets--gold::before,.brackets--gold::after{border-color:var(--gold)}
 
-.hero h1{margin-bottom:1rem;text-shadow:0 18px 44px rgba(0,0,0,.6)}
-.hero h1 .mega{filter:drop-shadow(0 0 26px rgba(27,156,224,.35))}
+.hero h1{margin-bottom:1rem}
+/* Each line wipes in from the left like a timing board refreshing, then the
+   highlight starts its slow pass. drop-shadow, not text-shadow — the fill is
+   transparent, so text-shadow would paint through the letters. */
+.hero h1 .mega{
+  filter:drop-shadow(0 14px 34px rgba(0,0,0,.55)) drop-shadow(0 0 30px rgba(27,156,224,.28));
+  /* The sheen is an arrival flourish, not a loop — three passes then it settles.
+     It repaints the headline every frame it runs, and this is the screen every
+     visitor sees first. */
+  animation:heroWipe 1.05s cubic-bezier(.16,.84,.3,1) both,
+            megaSheen 7s ease-in-out 1.5s 3;
+}
+.hero h1 .mega:nth-of-type(2){animation-delay:.17s, 1.75s}
+@keyframes heroWipe{
+  from{clip-path:inset(0 100% -30% 0);opacity:0;transform:skewX(-7deg) translateY(.14em)}
+  to  {clip-path:inset(0 -12% -30% 0);opacity:1;transform:skewX(-7deg) translateY(0)}
+}
+@keyframes megaSheen{
+  0%,100%{background-position:0% 0}
+  50%    {background-position:100% 0}
+}
+/* headings elsewhere get the same lit treatment, held back a notch */
+.sec h2{
+  background:linear-gradient(100deg,#FFFFFF 0%,#EAF4FD 44%,#B9DFF8 72%,#FFFFFF 100%);
+  background-size:200% 100%;
+  -webkit-background-clip:text;background-clip:text;
+  color:transparent;-webkit-text-fill-color:transparent;
+}
+/* -webkit-text-fill-color inherits, so accent spans inside a gradient heading
+   would go transparent and show the parent's gradient. Hand them back their colour. */
+.sec h2 .accent-blue,.sec h2 .accent-cyan,.sec h2 .accent-red,.sec h2 .accent-gold,
+.hero h1 .accent-blue,.hero h1 .accent-cyan{
+  -webkit-text-fill-color:currentColor;
+  background:none;
+}
 .hero .lede{color:#DCEAF6;font-size:clamp(1.06rem,1.5vw,1.3rem)}
 
 .hero__stats{
@@ -383,21 +476,38 @@ strong{color:#E6F1FA;font-weight:600}
 .grid--4{grid-template-columns:repeat(4,1fr)}
 
 .card{
+  --mx:50%;--my:0%;
   position:relative;
-  background:linear-gradient(158deg,rgba(21,85,138,.34),rgba(10,26,42,.86));
+  background:
+    linear-gradient(158deg,rgba(29,108,170,.30) 0%,rgba(13,36,58,.80) 46%,rgba(7,18,30,.92) 100%);
   border:1px solid var(--line);
   padding:clamp(1.4rem,2.4vw,2rem);
   clip-path:polygon(0 0,calc(100% - 22px) 0,100% 22px,100% 100%,22px 100%,0 calc(100% - 22px));
-  transition:transform .28s ease,border-color .28s ease,box-shadow .28s ease;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.07), 0 18px 40px -28px rgba(0,0,0,.9);
+  transition:transform .34s cubic-bezier(.2,.7,.3,1),border-color .3s ease,box-shadow .34s ease;
   overflow:hidden;
 }
 .card::before{
-  content:"";position:absolute;top:0;left:0;width:0;height:3px;
+  content:"";position:absolute;top:0;left:0;width:0;height:3px;z-index:3;
   background:linear-gradient(90deg,var(--blue),var(--cyan));
-  transition:width .38s ease;
+  box-shadow:0 0 14px rgba(79,224,232,.6);
+  transition:width .45s cubic-bezier(.2,.7,.3,1);
 }
-.card:hover{transform:translateY(-6px);border-color:rgba(79,224,232,.5);box-shadow:0 26px 50px -30px #000,var(--glow-blue)}
+/* Cursor-tracked spotlight — the card behaves like a surface under a moving
+   light rather than a flat panel. --mx/--my are set in main.js. */
+.card::after{
+  content:"";position:absolute;inset:0;z-index:1;pointer-events:none;opacity:0;
+  background:radial-gradient(260px 260px at var(--mx) var(--my), rgba(92,192,242,.20), transparent 68%);
+  transition:opacity .35s ease;
+}
+.card>*{position:relative;z-index:2}
+.card:hover{
+  transform:translateY(-7px);
+  border-color:rgba(79,224,232,.55);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.13), 0 34px 60px -32px #000, var(--glow-blue);
+}
 .card:hover::before{width:100%}
+.card:hover::after{opacity:1}
 .card h3{margin-bottom:.55rem}
 .card p{font-size:.97rem}
 .card__icon{
@@ -732,6 +842,118 @@ strong{color:#E6F1FA;font-weight:600}
   .hero__stats{gap:1.4rem 2rem}
   .brackets{padding:1.2rem 1rem}
   .brackets::before,.brackets::after{width:14px}
+}
+
+/* ============================================================
+   ELEVATION PASS — lighting, materials, motion
+   ============================================================ */
+
+/* ---------- scroll progress (timing-bar) ---------- */
+.scrollprog{
+  position:fixed;top:0;left:0;right:0;height:2px;z-index:120;pointer-events:none;
+  background:rgba(255,255,255,.05);
+}
+.scrollprog span{
+  display:block;height:100%;width:0;
+  background:linear-gradient(90deg,var(--blue),var(--cyan) 55%,var(--gold));
+  box-shadow:0 0 12px rgba(79,224,232,.7);
+  transition:width .12s linear;
+}
+
+/* ---------- photography reveals ---------- */
+/* Images settle in from a slight push-in instead of fading — closer to a rack
+   focus than a generic fade-up. */
+.shot img{
+  opacity:0;transform:scale(1.13);
+  transition:transform 1.15s cubic-bezier(.16,.84,.3,1), opacity .75s ease;
+}
+.shot.is-in img{opacity:1;transform:scale(1)}
+.shot.is-in:hover img{transform:scale(1.05)}
+/* light sweep across a photo as it lands */
+.shot::before{
+  background:
+    linear-gradient(168deg,rgba(27,156,224,.16) 0%,transparent 42%,rgba(10,24,38,.62) 100%);
+}
+.shot.is-in::before{animation:shotSweep 1.4s cubic-bezier(.2,.7,.3,1) .1s 1}
+@keyframes shotSweep{
+  0%  {box-shadow:inset 260px 0 90px -90px rgba(140,215,255,.55)}
+  100%{box-shadow:inset 0 0 0 0 rgba(140,215,255,0)}
+}
+
+/* ---------- brand ticker ---------- */
+/* Real content, not decoration: the hardware and software they actually run. */
+.ticker{
+  position:relative;overflow:hidden;
+  border-block:1px solid var(--line-soft);
+  background:linear-gradient(90deg,rgba(6,16,27,.9),rgba(14,44,74,.75),rgba(6,16,27,.9));
+  padding:.62rem 0;
+  -webkit-mask-image:linear-gradient(90deg,transparent,#000 12%,#000 88%,transparent);
+  mask-image:linear-gradient(90deg,transparent,#000 12%,#000 88%,transparent);
+}
+.ticker__track{display:flex;width:max-content;animation:tickerRun 42s linear infinite}
+.ticker__track b{
+  font-family:var(--f-disp);font-style:italic;font-weight:700;
+  text-transform:uppercase;letter-spacing:.20em;font-size:.82rem;
+  color:#9FC4DF;white-space:nowrap;display:flex;align-items:center;
+}
+.ticker__track b i{
+  font-style:normal;color:var(--gold);margin:0 1.5rem;opacity:.85;
+  font-size:.7rem;transform:translateY(-1px);
+}
+.ticker:hover .ticker__track{animation-play-state:paused}
+@keyframes tickerRun{from{transform:translate3d(0,0,0)}to{transform:translate3d(-50%,0,0)}}
+
+/* ---------- hero finishing ---------- */
+/* a lit edge where the hero meets the page, like light spilling under a door */
+.hero::after{
+  content:"";position:absolute;left:0;right:0;bottom:0;height:1px;z-index:3;
+  background:linear-gradient(90deg,transparent,rgba(79,224,232,.6) 30%,rgba(242,179,0,.5) 62%,transparent);
+}
+
+/* ---------- buttons ---------- */
+.btn--red{
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.28), 0 12px 26px -14px rgba(224,27,34,.8);
+}
+.btn--red:hover{
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.36), 0 16px 34px -14px rgba(224,27,34,.95), var(--glow-red);
+}
+.btn--blue{box-shadow:inset 0 1px 0 rgba(255,255,255,.24), 0 12px 26px -14px rgba(27,156,224,.75)}
+
+/* ---------- best-value tier: slow breathing glow ---------- */
+.tier--best{animation:bestPulse 5.5s ease-in-out infinite}
+@keyframes bestPulse{
+  0%,100%{box-shadow:0 0 0 1px rgba(242,179,0,.30), 0 30px 60px -34px #000}
+  50%    {box-shadow:0 0 0 1px rgba(242,179,0,.55), 0 30px 60px -30px #000, 0 0 34px rgba(242,179,0,.22)}
+}
+
+/* ---------- offscreen animation is paused (class set in main.js) ---------- */
+.chevrons.is-paused::before,
+.ticker.is-paused .ticker__track,
+.cta.is-paused::before,
+.hero.is-paused .hero__media::before,
+.hero.is-paused h1 .mega,
+.tier--best.is-paused{
+  animation-play-state:paused;
+}
+
+/* ---------- small screens ---------- */
+@media (max-width:760px){
+  /* .86 is set for single-line display type; once a line wraps on a narrow
+     screen the lines collide, so give wrapped type room to breathe. */
+  .mega{line-height:.95;letter-spacing:-.018em}
+  /* the left-weighted scrim assumes a wide canvas — on mobile the photo sits
+     directly behind the whole headline, so weight it vertically instead */
+  .hero--photo .hero__media::after{
+    background:
+      radial-gradient(94% 48% at 62% 18%, rgba(27,156,224,.20), transparent 66%),
+      linear-gradient(180deg,
+        rgba(6,16,27,.82) 0%,
+        rgba(8,24,41,.70) 38%,
+        rgba(6,15,25,.92) 80%,
+        var(--ink-900) 100%);
+  }
+  .ticker__track b{font-size:.74rem;letter-spacing:.16em}
+  .ticker__track b i{margin:0 1rem}
 }
 
 /* ---------- motion off ---------- */

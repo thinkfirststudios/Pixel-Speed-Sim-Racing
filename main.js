@@ -7,6 +7,37 @@
 
   var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
+  /* ---------- ambient light field ---------- */
+  /* Injected rather than sitting in the markup: it is pure atmosphere, and the
+     page has a static fallback wash without it. */
+  if (!reduced) {
+    var aura = document.createElement('div');
+    aura.className = 'aura';
+    aura.setAttribute('aria-hidden', 'true');
+    document.body.insertBefore(aura, document.body.firstChild);
+  }
+
+  /* ---------- scroll progress ---------- */
+  var prog = document.createElement('div');
+  prog.className = 'scrollprog';
+  prog.setAttribute('aria-hidden', 'true');
+  prog.innerHTML = '<span></span>';
+  document.body.appendChild(prog);
+  var progBar = prog.firstChild;
+  var progTick = false;
+  var updateProg = function () {
+    var max = document.documentElement.scrollHeight - window.innerHeight;
+    var pct = max > 0 ? (window.scrollY / max) * 100 : 0;
+    progBar.style.width = Math.min(100, Math.max(0, pct)) + '%';
+  };
+  updateProg();
+  window.addEventListener('scroll', function () {
+    if (progTick) return;
+    progTick = true;
+    requestAnimationFrame(function () { updateProg(); progTick = false; });
+  }, { passive: true });
+  window.addEventListener('resize', updateProg);
+
   /* ---------- footer year ---------- */
   var year = document.querySelector('[data-year]');
   if (year) year.textContent = new Date().getFullYear();
@@ -71,6 +102,44 @@
       };
       window.addEventListener('load', rescue);
       window.addEventListener('resize', rescue);
+    }
+  }
+
+  /* ---------- pause animation that is off screen ---------- */
+  /* Ambient loops (ticker, chevron strips, CTA streaks, the hero's sheen) would
+     otherwise keep compositing while scrolled past. Nothing animates unless the
+     viewer can actually see it. */
+  var pausable = document.querySelectorAll('.chevrons, .ticker, .cta, .hero, .tier--best');
+  if (pausable.length && 'IntersectionObserver' in window) {
+    var pio = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        entry.target.classList.toggle('is-paused', !entry.isIntersecting);
+      });
+    }, { rootMargin: '140px 0px' });
+    pausable.forEach(function (el) { pio.observe(el); });
+  }
+
+  /* ---------- photography settles in on scroll ---------- */
+  var shots = document.querySelectorAll('.shot');
+  if (shots.length) {
+    if (reduced || !('IntersectionObserver' in window)) {
+      shots.forEach(function (el) { el.classList.add('is-in'); });
+    } else {
+      var shio = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+          if (!entry.isIntersecting) return;
+          entry.target.classList.add('is-in');
+          shio.unobserve(entry.target);
+        });
+      }, { rootMargin: '0px 0px -8% 0px', threshold: 0.12 });
+      shots.forEach(function (el) { shio.observe(el); });
+      // Anything already on screen at load should not wait for a scroll.
+      window.addEventListener('load', function () {
+        shots.forEach(function (el) {
+          var r = el.getBoundingClientRect();
+          if (r.top < window.innerHeight && r.bottom > 0) el.classList.add('is-in');
+        });
+      });
     }
   }
 
@@ -139,19 +208,30 @@
     }, { passive: true });
   }
 
-  /* ---------- card hover tilt ---------- */
-  var tilts = document.querySelectorAll('[data-tilt]');
-  if (tilts.length && !reduced && window.matchMedia('(hover:hover)').matches) {
-    tilts.forEach(function (card) {
+  /* ---------- card tilt + cursor spotlight ---------- */
+  /* Every .card gets the spotlight; only [data-tilt] cards also lean. The tilt
+     is deliberately shallow — past ~3deg it stops reading as a lit surface and
+     starts reading as a novelty. */
+  var cards = document.querySelectorAll('.card');
+  if (cards.length && !reduced && window.matchMedia('(hover:hover)').matches) {
+    cards.forEach(function (card) {
+      var tilt = card.hasAttribute('data-tilt');
       card.addEventListener('mousemove', function (e) {
         var r = card.getBoundingClientRect();
+        card.style.setProperty('--mx', (e.clientX - r.left) + 'px');
+        card.style.setProperty('--my', (e.clientY - r.top) + 'px');
+        if (!tilt) return;
         var px = (e.clientX - r.left) / r.width - 0.5;
         var py = (e.clientY - r.top) / r.height - 0.5;
         card.style.transform =
-          'translateY(-6px) perspective(900px) rotateX(' + (-py * 4).toFixed(2) +
-          'deg) rotateY(' + (px * 5).toFixed(2) + 'deg)';
+          'translateY(-7px) perspective(1000px) rotateX(' + (-py * 2.6).toFixed(2) +
+          'deg) rotateY(' + (px * 3.2).toFixed(2) + 'deg)';
       });
-      card.addEventListener('mouseleave', function () { card.style.transform = ''; });
+      card.addEventListener('mouseleave', function () {
+        card.style.transform = '';
+        card.style.removeProperty('--mx');
+        card.style.removeProperty('--my');
+      });
     });
   }
 
