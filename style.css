@@ -393,6 +393,14 @@ strong{color:#E6F1FA;font-weight:600}
 .hero__media::after{
   content:"";position:absolute;inset:0;z-index:2;
   background:
+    /* Blue light spilling up off the floor of the lounge. Sits at the top of the
+       stack so it reads over the neutral scrim, and lands the brand colour as a
+       deliberate accent rather than an all-over wash. */
+    radial-gradient(118% 52% at 50% 100%,
+      rgba(27,156,224,.52) 0%,
+      rgba(23,102,163,.30) 32%,
+      rgba(13,52,88,.12) 56%,
+      transparent 78%),
     radial-gradient(70% 54% at 74% 24%, rgba(27,156,224,.12), transparent 64%),
     linear-gradient(96deg,
       rgba(3,6,10,.74) 0%,
@@ -402,8 +410,17 @@ strong{color:#E6F1FA;font-weight:600}
     linear-gradient(180deg,
       rgba(3,6,10,.60) 0%,
       rgba(5,11,18,.34) 34%,
-      rgba(3,6,10,.86) 78%,
-      #03060A 100%);
+      rgba(3,6,10,.78) 78%,
+      #040A12 100%);
+}
+/* Carry the glow across the divider so the hero does not stop dead against the
+   page background — the chevron strip and ticker directly below the hero pick
+   the blue up and hand it back to the dark. */
+.hero + .chevrons{
+  background:linear-gradient(180deg,rgba(20,86,140,.55) 0%,rgba(9,34,58,.35) 60%,transparent 100%);
+}
+.hero + .chevrons + .ticker{
+  background:linear-gradient(180deg,rgba(11,45,76,.65) 0%,rgba(6,20,34,.85) 100%);
 }
 @keyframes streak{to{transform:translateX(-96px)}}
 
