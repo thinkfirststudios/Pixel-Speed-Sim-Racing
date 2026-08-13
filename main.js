@@ -7,37 +7,6 @@
 
   var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-  /* ---------- ambient light field ---------- */
-  /* Injected rather than sitting in the markup: it is pure atmosphere, and the
-     page has a static fallback wash without it. */
-  if (!reduced) {
-    var aura = document.createElement('div');
-    aura.className = 'aura';
-    aura.setAttribute('aria-hidden', 'true');
-    document.body.insertBefore(aura, document.body.firstChild);
-  }
-
-  /* ---------- scroll progress ---------- */
-  var prog = document.createElement('div');
-  prog.className = 'scrollprog';
-  prog.setAttribute('aria-hidden', 'true');
-  prog.innerHTML = '<span></span>';
-  document.body.appendChild(prog);
-  var progBar = prog.firstChild;
-  var progTick = false;
-  var updateProg = function () {
-    var max = document.documentElement.scrollHeight - window.innerHeight;
-    var pct = max > 0 ? (window.scrollY / max) * 100 : 0;
-    progBar.style.width = Math.min(100, Math.max(0, pct)) + '%';
-  };
-  updateProg();
-  window.addEventListener('scroll', function () {
-    if (progTick) return;
-    progTick = true;
-    requestAnimationFrame(function () { updateProg(); progTick = false; });
-  }, { passive: true });
-  window.addEventListener('resize', updateProg);
-
   /* ---------- footer year ---------- */
   var year = document.querySelector('[data-year]');
   if (year) year.textContent = new Date().getFullYear();
