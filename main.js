@@ -106,10 +106,10 @@
   }
 
   /* ---------- pause animation that is off screen ---------- */
-  /* Ambient loops (ticker, chevron strips, CTA streaks, the hero's sheen) would
+  /* Ambient loops (ticker, CTA streaks, the hero's sheen and bracket glow) would
      otherwise keep compositing while scrolled past. Nothing animates unless the
      viewer can actually see it. */
-  var pausable = document.querySelectorAll('.chevrons, .ticker, .cta, .hero, .tier--best');
+  var pausable = document.querySelectorAll('.ticker, .cta, .hero, .tier--best');
   if (pausable.length && 'IntersectionObserver' in window) {
     var pio = new IntersectionObserver(function (entries) {
       entries.forEach(function (entry) {
