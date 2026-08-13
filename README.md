@@ -61,19 +61,53 @@ card hover tilt, and the step connector — all disabled under `prefers-reduced-
 - Local area coverage: Murphy, Plano, Wylie, Sachse, Richardson, Allen, Garland, Dallas
 - `robots.txt` + `sitemap.xml`
 
+## Photography
+
+All imagery is Pixel Speed's own, pulled from the current live site (Zyro CDN) and
+re-cropped. Sources are cached in `images/` as WebP + JPEG pairs, served via `<picture>`
+so modern browsers get WebP and everything else falls back to JPEG. The hero background
+additionally ships AVIF.
+
+| Asset | Used on |
+|---|---|
+| `hero-bg` | Home hero (the lounge mid-session — client-selected) |
+| `racers-pair` | Home / About |
+| `driver-wheel` | Home / Memberships |
+| `coach-driver` | Home / Academy, Academy hero + feature |
+| `mobile-rigs` | Home / Additional Services, Mobile Rigs hero + feature |
+| `wheel-closeup` | Home / Turn-Key card, Rig Builds hero |
+| `rig-ferrari-tall` | Rig Builds feature |
+| `lounge-empty` | Pricing hero, Contact hero + feature |
+| `lounge-racing` | Pricing feature, Parties feature |
+| `hero-lounge` | Parties hero |
+| `ig-1` … `ig-6` | Home / Instagram grid |
+
+Two source stills (`still023`, `still033`) were letterboxed 2.39:1 inside a 16:9 frame;
+the black bars are stripped before cropping. Total image payload is roughly 4 MB across
+all pages, every file lazy-loaded except the hero.
+
 ## Before launch — confirm with the client
 
-1. Party / group pricing (placeholders marked `[confirm rate]` on `parties.html`)
-2. Mobile rig rental rates + delivery radius (`mobile-rigs.html`)
-3. Turn-key build tiers, inclusions and starting prices (`rig-builds.html`)
-4. Academy schedule and whether it has its own booking link (`academy.html`)
-5. League launch timing (referenced in membership benefits)
-6. Whether the UNLIMITED membership is seasonal ("Summer") or permanent
+1. **Membership details conflict with their own graphic.** The build follows the numbers in
+   the brief. Their current site's memberships table (`pixel-speed-memberships-061526-v2`)
+   says something different on three points:
+   - Student "friends & family" discount: brief says **20%**, graphic says **10%**
+   - iRacing credit: brief says **$15 / $15 / $20**, graphic says **$10 / $10 / $15**
+   - The graphic labels the top tier **"Summer Unlimited"** and shows the *3 months free
+     iRacing* perk as **excluded** from it (brief lists that perk membership-wide)
+
+   Confirm which is current before launch — this is live pricing.
+2. Party / group pricing (placeholders marked `[confirm rate]` on `parties.html`)
+3. Mobile rig rental rates + delivery radius (`mobile-rigs.html`)
+4. Turn-key build tiers, inclusions and starting prices (`rig-builds.html`)
+5. Academy schedule and whether it has its own booking link (`academy.html`)
+6. League launch timing (referenced in membership benefits)
 7. Target service areas listed above
 8. Geo coordinates in the home-page JSON-LD are approximate for Murphy — replace with the
    exact suite location
-9. Real photography to replace every `[IMAGE: …]` placeholder block
-10. Instagram feed — currently placeholder tiles; wire to a feed widget or hand-place posts
+9. Instagram grid is hand-placed stills, not a live feed — wire to a feed widget if they
+   want it self-updating
+10. Confirm they're happy re-using the current site's photography, or supply fresh shots
 
 ## Forms
 

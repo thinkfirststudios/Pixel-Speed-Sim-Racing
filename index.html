@@ -134,8 +134,16 @@
 <main id="main">
 
 <!-- ============ HERO ============ -->
-<section class="hero">
-  <div class="hero__media" aria-hidden="true"></div>
+<section class="hero hero--photo">
+  <div class="hero__media" aria-hidden="true">
+    <picture>
+      <source srcset="images/hero-bg.avif" type="image/avif" media="(min-width:760px)">
+      <source srcset="images/hero-bg.webp" type="image/webp" media="(min-width:760px)">
+      <source srcset="images/hero-bg-sm.avif" type="image/avif">
+      <source srcset="images/hero-bg-sm.webp" type="image/webp">
+      <img class="hero__photo" src="images/hero-bg.jpg" alt="" width="1740" height="979" fetchpriority="high" decoding="async">
+    </picture>
+  </div>
   <div class="wrap hero__in">
     <div class="brackets" data-reveal>
       <p class="eyebrow">Murphy, TX · Powered by iRacing</p>
@@ -158,10 +166,6 @@
       <div class="stat">
         <span class="stat__n"><span data-count="30">30</span><span class="u">min</span></span>
         <span class="stat__l">Sessions From $25</span>
-      </div>
-      <div class="stat">
-        <span class="stat__n">iRacing</span>
-        <span class="stat__l">World's Premier Sim</span>
       </div>
       <div class="stat">
         <span class="stat__n"><span data-count="6">6</span> <span class="u">days</span></span>
@@ -217,9 +221,11 @@
         <a class="btn btn--ghost" href="contact.html">Visit The Lounge</a>
       </div>
     </div>
-    <figure class="ph ph--tall" role="img" aria-label="Photo placeholder: the Pixel Speed lounge" data-reveal="right">
-      <span class="ph__tag">Image</span>
-      <span class="ph__txt">The lounge — 10 rigs under blue light</span>
+    <figure class="shot shot--tall" data-reveal="right">
+      <picture>
+        <source srcset="images/racers-pair.webp" type="image/webp">
+        <img src="images/racers-pair.jpg" alt="Two racers side by side on Pixel Speed simulators in the Murphy lounge" width="900" height="1125" loading="lazy" decoding="async">
+      </picture>
     </figure>
   </div>
 </section>
@@ -303,9 +309,11 @@
 <!-- ============ MEMBERSHIPS TEASER ============ -->
 <section class="sec">
   <div class="wrap split split--flip">
-    <figure class="ph" role="img" aria-label="Photo placeholder: member in the seat, wheel in hand" data-reveal="left">
-      <span class="ph__tag">Image</span>
-      <span class="ph__txt">Member in the seat, wheel in hand</span>
+    <figure class="shot" data-reveal="left">
+      <picture>
+        <source srcset="images/driver-wheel.webp" type="image/webp">
+        <img src="images/driver-wheel.jpg" alt="Driver in a headset gripping the wheel mid-race at Pixel Speed" width="1200" height="750" loading="lazy" decoding="async">
+      </picture>
     </figure>
     <div data-reveal="right">
       <p class="eyebrow">Memberships</p>
@@ -341,9 +349,11 @@
         <a class="btn btn--ghost" href="https://bookings.clubspeed.com/PSR/PSMurphy" target="_blank" rel="noopener">Book A Seat</a>
       </div>
     </div>
-    <figure class="ph" role="img" aria-label="Photo placeholder: coach instructing a driver at the rig" data-reveal="right">
-      <span class="ph__tag">Image</span>
-      <span class="ph__txt">Coach instructing a driver at the rig</span>
+    <figure class="shot" data-reveal="right">
+      <picture>
+        <source srcset="images/coach-driver.webp" type="image/webp">
+        <img src="images/coach-driver.jpg" alt="A Pixel Speed coach watching a driver's inputs during an Academy session" width="1200" height="750" loading="lazy" decoding="async">
+      </picture>
     </figure>
   </div>
 </section>
@@ -358,9 +368,11 @@
 
     <div class="grid grid--2">
       <article class="card" data-tilt data-reveal>
-        <figure class="ph ph--wide" role="img" aria-label="Photo placeholder: mobile rig set up at an event" style="margin-bottom:1.4rem">
-          <span class="ph__tag">Image</span>
-          <span class="ph__txt">Mobile rig set up at an event</span>
+        <figure class="shot shot--wide" style="margin-bottom:1.4rem">
+          <picture>
+            <source srcset="images/mobile-rigs.webp" type="image/webp">
+            <img src="images/mobile-rigs.jpg" alt="Two Pixel Speed mobile racing rigs set up at an off-site event" width="1600" height="686" loading="lazy" decoding="async">
+          </picture>
         </figure>
         <h3>Mobile Racing Rigs</h3>
         <p>Rent our two mobile sim racing rigs for your next party or event. Rigs available for half-day and full-day rentals.</p>
@@ -368,9 +380,11 @@
       </article>
 
       <article class="card" data-tilt data-reveal data-reveal-delay="130">
-        <figure class="ph ph--wide" role="img" aria-label="Photo placeholder: finished custom simulator build" style="margin-bottom:1.4rem">
-          <span class="ph__tag">Image</span>
-          <span class="ph__txt">Finished custom simulator build</span>
+        <figure class="shot shot--wide" style="margin-bottom:1.4rem">
+          <picture>
+            <source srcset="images/wheel-closeup-wide.webp" type="image/webp">
+            <img src="images/wheel-closeup-wide.jpg" alt="Asetek SimSports direct-drive wheel on a Pixel Speed racing simulator" width="1600" height="686" loading="lazy" decoding="async">
+          </picture>
         </figure>
         <h3>Turn-Key Racing Simulator Builds</h3>
         <p>Looking to get your own sim racing rig? We will build you a custom racing simulator and deliver it to you ready to race.</p>
@@ -432,12 +446,12 @@
       <p class="lede">Lap records, league nights, new cars and behind-the-scenes from the lounge.</p>
     </div>
     <div class="iggrid" data-reveal>
-      <figure class="ph" role="img" aria-label="Instagram post placeholder"><span class="ph__tag">IG</span><span class="ph__txt">Feed 1</span></figure>
-      <figure class="ph" role="img" aria-label="Instagram post placeholder"><span class="ph__tag">IG</span><span class="ph__txt">Feed 2</span></figure>
-      <figure class="ph" role="img" aria-label="Instagram post placeholder"><span class="ph__tag">IG</span><span class="ph__txt">Feed 3</span></figure>
-      <figure class="ph" role="img" aria-label="Instagram post placeholder"><span class="ph__tag">IG</span><span class="ph__txt">Feed 4</span></figure>
-      <figure class="ph" role="img" aria-label="Instagram post placeholder"><span class="ph__tag">IG</span><span class="ph__txt">Feed 5</span></figure>
-      <figure class="ph" role="img" aria-label="Instagram post placeholder"><span class="ph__tag">IG</span><span class="ph__txt">Feed 6</span></figure>
+      <figure class="shot shot--square"><picture><source srcset="images/ig-1.webp" type="image/webp"><img src="images/ig-1.jpg" alt="Racers lined up on the Pixel Speed grid" width="600" height="600" loading="lazy" decoding="async"></picture></figure>
+      <figure class="shot shot--square"><picture><source srcset="images/ig-2.webp" type="image/webp"><img src="images/ig-2.jpg" alt="The Pixel Speed simulator bay" width="600" height="600" loading="lazy" decoding="async"></picture></figure>
+      <figure class="shot shot--square"><picture><source srcset="images/ig-3.webp" type="image/webp"><img src="images/ig-3.jpg" alt="Asetek SimSports wheel on a Pixel Speed rig" width="600" height="600" loading="lazy" decoding="async"></picture></figure>
+      <figure class="shot shot--square"><picture><source srcset="images/ig-4.webp" type="image/webp"><img src="images/ig-4.jpg" alt="Driver at speed in the Pixel Speed lounge" width="600" height="600" loading="lazy" decoding="async"></picture></figure>
+      <figure class="shot shot--square"><picture><source srcset="images/ig-5.webp" type="image/webp"><img src="images/ig-5.jpg" alt="Hands on the wheel mid-session" width="600" height="600" loading="lazy" decoding="async"></picture></figure>
+      <figure class="shot shot--square"><picture><source srcset="images/ig-6.webp" type="image/webp"><img src="images/ig-6.jpg" alt="Pixel Speed mobile rigs out at an event" width="600" height="600" loading="lazy" decoding="async"></picture></figure>
     </div>
     <div class="btn-row" style="justify-content:center">
       <a class="btn btn--ghost" href="https://www.instagram.com/pixelspeedsimracing" target="_blank" rel="noopener">Follow On Instagram</a>

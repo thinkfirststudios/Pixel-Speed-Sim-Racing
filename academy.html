@@ -92,8 +92,13 @@
 
 <main id="main">
 
-<section class="hero">
-  <div class="hero__media" aria-hidden="true"></div>
+<section class="hero hero--photo">
+  <div class="hero__media" aria-hidden="true">
+    <picture>
+      <source srcset="images/coach-driver.webp" type="image/webp">
+      <img class="hero__photo" src="images/coach-driver.jpg" alt="" width="1200" height="750" fetchpriority="high" decoding="async">
+    </picture>
+  </div>
   <div class="wrap hero__in" style="min-height:clamp(360px,52vh,520px)">
     <div class="brackets" data-reveal>
       <p class="eyebrow">Sim Racing Academy</p>
@@ -121,10 +126,12 @@
         <a class="btn btn--red" href="https://bookings.clubspeed.com/PSR/PSMurphy" target="_blank" rel="noopener">Book A Seat</a>
       </div>
     </div>
-    <figure class="ph ph--tall" role="img" aria-label="Photo placeholder: coach walking a driver through a corner" data-reveal="right">
-      <span class="ph__tag">Image</span>
-      <span class="ph__txt">Coach walking a driver through a corner</span>
-    </figure>
+    <figure class="shot shot--tall" data-reveal="right">
+        <picture>
+          <source srcset="images/coach-driver-tall.webp" type="image/webp">
+          <img src="images/coach-driver-tall.jpg" alt="A coach walking a driver through braking and racing line" width="900" height="1125" loading="lazy" decoding="async">
+        </picture>
+      </figure>
   </div>
 </section>
 

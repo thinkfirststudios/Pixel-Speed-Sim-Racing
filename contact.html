@@ -71,8 +71,13 @@
 
 <main id="main">
 
-<section class="hero">
-  <div class="hero__media" aria-hidden="true"></div>
+<section class="hero hero--photo">
+  <div class="hero__media" aria-hidden="true">
+    <picture>
+      <source srcset="images/lounge-empty.webp" type="image/webp">
+      <img class="hero__photo" src="images/lounge-empty.jpg" alt="" width="2000" height="1125" fetchpriority="high" decoding="async">
+    </picture>
+  </div>
   <div class="wrap hero__in" style="min-height:clamp(340px,46vh,460px)">
     <div class="brackets" data-reveal>
       <p class="eyebrow">Murphy, TX 75094</p>
@@ -157,9 +162,11 @@
       <p class="eyebrow">Message Us</p>
       <h2>Questions?<br><span class="accent-blue">Ask Away.</span></h2>
       <p class="lede">Booking a session is fastest through <a href="https://bookings.clubspeed.com/PSR/PSMurphy" target="_blank" rel="noopener">our booking system</a>. For memberships, parties, Academy dates, mobile rig rentals or a custom build, send us a note.</p>
-      <figure class="ph ph--wide" role="img" aria-label="Photo placeholder: the front desk and lounge entrance" style="margin-top:1.6rem">
-        <span class="ph__tag">Image</span>
-        <span class="ph__txt">Front desk and lounge entrance</span>
+      <figure class="shot shot--wide" style="margin-top:1.6rem">
+        <picture>
+          <source srcset="images/lounge-empty-wide.webp" type="image/webp">
+          <img src="images/lounge-empty-wide.jpg" alt="The Pixel Speed lounge and simulator bay in Murphy, Texas" width="1600" height="686" loading="lazy" decoding="async">
+        </picture>
       </figure>
     </div>
 

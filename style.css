@@ -313,9 +313,27 @@ strong{color:#E6F1FA;font-weight:600}
   filter:blur(1.2px);
   animation:streak 7s linear infinite;
 }
+/* photo layer sits under the streaks and the scrim */
+.hero__photo{
+  position:absolute;inset:0;z-index:0;
+  width:100%;height:100%;object-fit:cover;
+  filter:saturate(.92) contrast(1.04);
+}
+.hero__media::before{z-index:1}
 .hero__media::after{
-  content:"";position:absolute;left:0;right:0;bottom:0;height:46%;
-  background:linear-gradient(180deg,transparent,var(--ink-900));
+  content:"";position:absolute;inset:0;z-index:2;
+  background:
+    radial-gradient(78% 58% at 72% 26%, rgba(27,156,224,.24), transparent 62%),
+    linear-gradient(180deg,
+      rgba(10,24,38,.78) 0%,
+      rgba(11,32,57,.62) 34%,
+      rgba(10,24,38,.90) 78%,
+      var(--ink-900) 100%);
+}
+/* left-weighted scrim keeps the headline legible over a busy photo */
+.hero--photo .hero__in::before{
+  content:"";position:absolute;inset:0;z-index:-1;pointer-events:none;
+  background:linear-gradient(96deg,rgba(8,20,33,.78) 0%,rgba(8,20,33,.42) 46%,transparent 72%);
 }
 @keyframes streak{to{transform:translateX(-96px)}}
 
@@ -405,33 +423,35 @@ strong{color:#E6F1FA;font-weight:600}
 .tag--cyan{background:var(--cyan)}
 .tag--red{background:var(--red);color:#fff}
 
-/* ---------- image placeholders ---------- */
-.ph{
+/* ---------- real photography ---------- */
+.shot{
   position:relative;margin:0;overflow:hidden;
-  background:
-    repeating-linear-gradient(108deg,transparent 0 34px,rgba(255,255,255,.035) 34px 38px,transparent 38px 80px),
-    linear-gradient(150deg,#123A63,#0B1E33 60%,#15558A);
-  border:1px dashed rgba(79,224,232,.4);
   aspect-ratio:16/10;
-  display:grid;place-content:center;text-align:center;padding:1.4rem;
+  background:#0B1E33;
+  border:1px solid var(--line);
   clip-path:polygon(0 0,calc(100% - 26px) 0,100% 26px,100% 100%,26px 100%,0 calc(100% - 26px));
 }
-.ph--tall{aspect-ratio:4/5}
-.ph--wide{aspect-ratio:21/9}
-.ph--square{aspect-ratio:1/1}
-.ph__tag{
-  font-family:var(--f-disp);font-style:italic;font-weight:700;
-  letter-spacing:.24em;font-size:.7rem;color:var(--gold);text-transform:uppercase;display:block;
+.shot img{
+  width:100%;height:100%;object-fit:cover;display:block;
+  transition:transform .7s cubic-bezier(.22,.7,.3,1);
 }
-.ph__txt{
-  font-family:var(--f-disp);font-style:italic;font-weight:700;text-transform:uppercase;
-  font-size:clamp(.95rem,1.5vw,1.2rem);color:rgba(255,255,255,.72);letter-spacing:.05em;
-  display:block;margin-top:.4rem;max-width:26ch;
+/* blue grade so the photography sits inside the brand palette rather than
+   fighting it — warm lounge lighting otherwise reads yellow against the navy */
+.shot::before{
+  content:"";position:absolute;inset:0;z-index:1;pointer-events:none;
+  background:
+    linear-gradient(168deg,rgba(27,156,224,.16) 0%,transparent 42%,rgba(10,24,38,.62) 100%);
 }
-.ph::after{
-  content:"";position:absolute;right:0;bottom:0;width:64px;height:22px;
-  background:repeating-conic-gradient(#fff 0% 25%,#0A1826 0% 50%) 0 0/11px 11px;opacity:.25;
+.shot::after{
+  content:"";position:absolute;right:0;bottom:0;z-index:2;width:64px;height:22px;
+  background:repeating-conic-gradient(#fff 0% 25%,#0A1826 0% 50%) 0 0/11px 11px;opacity:.22;
 }
+.shot:hover img{transform:scale(1.045)}
+.shot--tall{aspect-ratio:4/5}
+.shot--wide{aspect-ratio:21/9}
+.shot--square{aspect-ratio:1/1;clip-path:polygon(0 0,calc(100% - 14px) 0,100% 14px,100% 100%,14px 100%,0 calc(100% - 14px))}
+.shot--square::after{width:34px;height:12px;background-size:6px 6px}
+.shot--plain{clip-path:none}
 
 /* ---------- split ---------- */
 .split{display:grid;grid-template-columns:1.05fr .95fr;gap:clamp(1.6rem,4vw,3.4rem);align-items:center}
@@ -597,9 +617,6 @@ strong{color:#E6F1FA;font-weight:600}
 
 /* ---------- instagram ---------- */
 .iggrid{display:grid;grid-template-columns:repeat(6,1fr);gap:.7rem}
-.iggrid .ph{aspect-ratio:1/1;clip-path:polygon(0 0,calc(100% - 14px) 0,100% 14px,100% 100%,14px 100%,0 calc(100% - 14px))}
-.iggrid .ph__txt{font-size:.78rem}
-.iggrid .ph::after{width:34px;height:12px;background-size:6px 6px}
 
 /* ---------- FAQ / accordion-ish list ---------- */
 .qa{border-top:1px solid var(--line-soft);padding:1.2rem 0}

@@ -71,8 +71,13 @@
 
 <main id="main">
 
-<section class="hero">
-  <div class="hero__media" aria-hidden="true"></div>
+<section class="hero hero--photo">
+  <div class="hero__media" aria-hidden="true">
+    <picture>
+      <source srcset="images/hero-lounge.webp" type="image/webp">
+      <img class="hero__photo" src="images/hero-lounge.jpg" alt="" width="2000" height="1125" fetchpriority="high" decoding="async">
+    </picture>
+  </div>
   <div class="wrap hero__in" style="min-height:clamp(360px,52vh,520px)">
     <div class="brackets" data-reveal>
       <p class="eyebrow">Group Racing · Murphy, TX</p>
@@ -196,9 +201,11 @@
       <p class="eyebrow">Get A Quote</p>
       <h2>Plan Your<br><span class="accent-blue">Event.</span></h2>
       <p class="lede">Send us the details and we'll come back with availability and a price. Prefer to talk it through? Call <a href="tel:+19453339115">945-333-9115</a>.</p>
-      <figure class="ph ph--wide" role="img" aria-label="Photo placeholder: full lounge during a private event" style="margin-top:1.6rem">
-        <span class="ph__tag">Image</span>
-        <span class="ph__txt">Full lounge during a private event</span>
+      <figure class="shot shot--wide" style="margin-top:1.6rem">
+        <picture>
+          <source srcset="images/lounge-racing-wide.webp" type="image/webp">
+          <img src="images/lounge-racing-wide.jpg" alt="The full Pixel Speed lounge in use during a private event" width="1600" height="686" loading="lazy" decoding="async">
+        </picture>
       </figure>
     </div>
 

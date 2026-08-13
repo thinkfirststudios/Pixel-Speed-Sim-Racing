@@ -72,8 +72,13 @@
 <main id="main">
 
 <!-- ============ PAGE HERO ============ -->
-<section class="hero">
-  <div class="hero__media" aria-hidden="true"></div>
+<section class="hero hero--photo">
+  <div class="hero__media" aria-hidden="true">
+    <picture>
+      <source srcset="images/lounge-empty.webp" type="image/webp">
+      <img class="hero__photo" src="images/lounge-empty.jpg" alt="" width="2000" height="1125" fetchpriority="high" decoding="async">
+    </picture>
+  </div>
   <div class="wrap hero__in" style="min-height:clamp(360px,52vh,520px)">
     <div class="brackets" data-reveal>
       <p class="eyebrow">Sim Racing Murphy TX · DFW</p>
@@ -222,10 +227,12 @@
         <a class="btn btn--blue" href="contact.html">Talk To Us About Membership</a>
       </div>
     </div>
-    <figure class="ph ph--tall" role="img" aria-label="Photo placeholder: regulars racing wheel-to-wheel" data-reveal="right">
-      <span class="ph__tag">Image</span>
-      <span class="ph__txt">Regulars racing wheel-to-wheel</span>
-    </figure>
+    <figure class="shot shot--tall" data-reveal="right">
+        <picture>
+          <source srcset="images/lounge-racing-tall.webp" type="image/webp">
+          <img src="images/lounge-racing-tall.jpg" alt="Regulars racing wheel-to-wheel on the Pixel Speed grid" width="900" height="1125" loading="lazy" decoding="async">
+        </picture>
+      </figure>
   </div>
 </section>
 
