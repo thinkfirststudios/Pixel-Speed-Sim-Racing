@@ -926,6 +926,106 @@ strong{color:#E6F1FA;font-weight:600}
   50%    {box-shadow:0 0 0 1px rgba(242,179,0,.55), 0 30px 60px -30px #000, 0 0 34px rgba(242,179,0,.22)}
 }
 
+/* ============================================================
+   LIGHT SECTIONS
+   Rule: dark sections sell — hero, photography, memberships, CTAs.
+   Light sections inform — the booking process, the price list.
+   Implemented by re-pointing the tokens, so components inherit the theme
+   instead of every one needing a hand-written light variant.
+   ============================================================ */
+.sec--light{
+  /* Values chosen against the measured band background (#EDF3F9), not eyeballed.
+     The dark theme's own --body-dim and --cyan land at 3.33:1 and 4.39:1 here,
+     both under the 4.5:1 needed for body copy. */
+  --white:#0A1A2B;          /* headings          15.72:1 */
+  --body:#43596D;           /* body copy          6.50:1 */
+  --body-dim:#566A7C;       /* secondary copy     5.01:1 */
+  --line:rgba(11,45,80,.16);
+  --line-soft:rgba(11,45,80,.09);
+  --cyan:#0A6693;           /* eyebrows, links    5.63:1 */
+  --blue-soft:#0C6494;      /*                    5.75:1 */
+  color:var(--body);
+  background:
+    radial-gradient(80% 130% at 50% -25%, #FFFFFF 0%, transparent 62%),
+    linear-gradient(180deg,#F7FAFD 0%,#EDF3F9 58%,#E4EDF6 100%);
+}
+.sec--light::before{
+  content:"";position:absolute;top:0;left:10%;right:10%;height:1px;
+  background:linear-gradient(90deg,transparent,rgba(12,119,176,.42),transparent);
+}
+.sec--light .lede{color:#3F5568}
+.sec--light strong{color:#0A1A2B}
+.sec--light .accent-blue{color:#1478B8}
+.sec--light .accent-cyan{color:#0A6693}
+/* solid ink heading — the light-on-dark gradient would be invisible here */
+.sec.sec--light h2{
+  background:linear-gradient(100deg,#08172A 0%,#123A63 48%,#1B6FA8 76%,#08172A 100%);
+  background-size:200% 100%;
+  -webkit-background-clip:text;background-clip:text;
+  color:transparent;-webkit-text-fill-color:transparent;
+}
+.sec.sec--light h2 .accent-blue{-webkit-text-fill-color:#1478B8;background:none}
+
+/* cards read as paper on the light ground */
+.sec--light .card{
+  background:linear-gradient(158deg,#FFFFFF 0%,#F5F9FD 100%);
+  border-color:rgba(11,45,80,.14);
+  box-shadow:inset 0 1px 0 #fff, 0 18px 36px -26px rgba(9,32,58,.45);
+}
+.sec--light .card:hover{
+  border-color:rgba(12,119,176,.5);
+  box-shadow:inset 0 1px 0 #fff, 0 30px 50px -28px rgba(9,32,58,.5), 0 0 26px rgba(27,156,224,.16);
+}
+.sec--light .card::after{
+  background:radial-gradient(260px 260px at var(--mx) var(--my), rgba(27,156,224,.14), transparent 68%);
+}
+.sec--light .card__icon{
+  background:linear-gradient(140deg,rgba(27,156,224,.16),rgba(224,27,34,.08));
+  border-color:rgba(11,45,80,.14);
+}
+.sec--light .card__icon svg{stroke:#0A6693}
+.sec--light .card__price{color:#0A1A2B}
+
+/* the step markers become solid gold on white rather than hollow on dark */
+.sec--light .steps::before{
+  background:linear-gradient(90deg,transparent,rgba(184,134,0,.55),rgba(184,134,0,.55),transparent);
+}
+.sec--light .step__n{
+  color:#2E2200;
+  filter:drop-shadow(0 8px 18px rgba(184,134,0,.35));
+}
+.sec--light .step__n::before{background:linear-gradient(150deg,#FFD450,#F2A900)}
+
+/* price tables on paper */
+.sec--light .ptable{
+  background:#fff;border-color:rgba(11,45,80,.14);
+  box-shadow:0 18px 40px -30px rgba(9,32,58,.5);
+}
+.sec--light .ptable caption{color:#0A6693}
+.sec--light .ptable thead th{background:#E7EFF7;color:#52667A}
+.sec--light .ptable tbody th{color:#0A1A2B}
+.sec--light .ptable tbody th small{color:#566A7C}
+.sec--light .ptable td.price{color:#0A1A2B}
+.sec--light .ptable tbody tr:hover{background:rgba(27,156,224,.07)}
+
+.sec--light .btn--ghost{color:#0A1A2B;box-shadow:inset 0 0 0 2px rgba(12,119,176,.55)}
+.sec--light .btn--ghost:hover{background:rgba(10,102,147,.10);box-shadow:inset 0 0 0 2px #0A6693}
+.sec--light .tag--cyan{background:#0A6693;color:#fff}
+
+/* ---------- gradient type only where the backdrop is dark ---------- */
+/* The CTA band lightens to #15558A on its right side, and the headline
+   gradient's pale-blue stops land straight on it — worst-case contrast falls to
+   4.12:1 versus 9.17:1 for solid white. Lit type is a nice effect; a legible
+   headline is the job. This one stays solid. */
+.sec.cta h2,
+.sec.cta h2 .mega,
+.sec.cta h2 .mega em{
+  background:none;
+  color:#fff;
+  -webkit-text-fill-color:#fff;
+  text-shadow:0 10px 30px rgba(0,0,0,.45);
+}
+
 /* ---------- offscreen animation is paused (class set in main.js) ---------- */
 .chevrons.is-paused::before,
 .ticker.is-paused .ticker__track,
