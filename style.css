@@ -1015,24 +1015,37 @@ strong{color:#E6F1FA;font-weight:600}
   -webkit-background-clip:text;background-clip:text;
   color:transparent;-webkit-text-fill-color:transparent;
 }
+/* Blue cards on the crimson ground — the two brand colours meeting head-on,
+   with the card carrying its own local tokens so its contents follow. */
 .sec--hot .card{
-  background:linear-gradient(158deg,rgba(132,18,25,.52) 0%,rgba(46,7,13,.90) 54%,rgba(22,4,8,.96) 100%);
-  border-color:rgba(255,150,155,.24);
-  box-shadow:inset 0 1px 0 rgba(255,190,193,.16), 0 18px 40px -28px #000;
+  --cyan:#7FD6FF;
+  --body:#CFE4F5;
+  --body-dim:#A2BDD2;
+  --line:rgba(92,192,242,.30);
+  color:var(--body);
+  background:linear-gradient(158deg,rgba(24,96,155,.62) 0%,rgba(9,32,55,.93) 54%,rgba(5,16,28,.97) 100%);
+  border-color:rgba(92,192,242,.32);
+  box-shadow:inset 0 1px 0 rgba(180,225,255,.18), 0 22px 46px -28px #000;
 }
 .sec--hot .card:hover{
-  border-color:rgba(255,140,146,.65);
-  box-shadow:inset 0 1px 0 rgba(255,205,208,.26), 0 34px 60px -32px #000, 0 0 30px rgba(255,90,96,.28);
+  border-color:rgba(92,192,242,.75);
+  box-shadow:inset 0 1px 0 rgba(200,235,255,.28), 0 36px 62px -32px #000, 0 0 32px rgba(27,156,224,.38);
 }
-.sec--hot .card::before{background:linear-gradient(90deg,#FFD0D2,var(--gold) 60%,#fff)}
+.sec--hot .card::before{background:linear-gradient(90deg,var(--blue),var(--cyan) 55%,#fff)}
 .sec--hot .card::after{
-  background:radial-gradient(260px 260px at var(--mx) var(--my), rgba(255,170,175,.18), transparent 68%);
+  background:radial-gradient(260px 260px at var(--mx) var(--my), rgba(120,205,255,.20), transparent 68%);
 }
+.sec--hot .card p{color:var(--body)}
+.sec--hot .card .muted{color:var(--body-dim)}
+.sec--hot .card .link-arrow{color:#7FD6FF}
+.sec--hot .card .link-arrow:hover{color:#fff}
+.sec--hot .card .tag--cyan{background:#5CC0F2;color:#062033}
+.sec--hot .card .tag--red{background:var(--red);color:#fff}
 .sec--hot .card__icon{
-  background:linear-gradient(140deg,rgba(255,150,155,.20),rgba(242,179,0,.10));
-  border-color:rgba(255,150,155,.24);
+  background:linear-gradient(140deg,rgba(92,192,242,.22),rgba(27,156,224,.10));
+  border-color:rgba(92,192,242,.30);
 }
-.sec--hot .card__icon svg{stroke:#FFD0D2}
+.sec--hot .card__icon svg{stroke:#7FD6FF}
 .sec--hot .card__price{color:#fff}
 .sec--hot .card--red{border-color:rgba(255,190,193,.42)}
 .sec--hot .card--red:hover{border-color:#FFD0D2}
@@ -1043,6 +1056,21 @@ strong{color:#E6F1FA;font-weight:600}
 .sec--hot .link-arrow:hover{color:#fff}
 .sec--hot .btn--ghost{color:#fff;box-shadow:inset 0 0 0 2px rgba(255,190,193,.6)}
 .sec--hot .btn--ghost:hover{background:rgba(255,255,255,.14);box-shadow:inset 0 0 0 2px #fff}
+
+/* Where the red section meets an angled light section, the light section's
+   diagonal cut was revealing the page's navy canvas as a wedge between them.
+   The red bleeds under its light neighbours so the cut exposes red instead;
+   the light sections paint above it, so only the clipped-away part shows. */
+.sec--hot{z-index:0}
+.sec--light{z-index:1}
+.sec--light + .sec--hot{
+  margin-top:-3.6vw;
+  padding-top:calc(clamp(3.6rem,7vw,6.4rem) + 3.6vw);
+}
+.sec--hot:has(+ .sec--light){
+  margin-bottom:-3.6vw;
+  padding-bottom:calc(clamp(3.6rem,7vw,6.4rem) + 3.6vw);
+}
 
 /* ============================================================
    LIGHT SECTIONS
