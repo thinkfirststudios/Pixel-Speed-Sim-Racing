@@ -320,20 +320,23 @@ strong{color:#E6F1FA;font-weight:600}
   filter:saturate(.92) contrast(1.04);
 }
 .hero__media::before{z-index:1}
+/* Scrim lives on the media layer, not on .hero__in — .hero__in is a .wrap, so a
+   scrim there stops dead at the 1180px content column and leaves a hard vertical
+   seam over the photo on anything wider. */
 .hero__media::after{
   content:"";position:absolute;inset:0;z-index:2;
   background:
     radial-gradient(78% 58% at 72% 26%, rgba(27,156,224,.24), transparent 62%),
+    linear-gradient(96deg,
+      rgba(8,20,33,.72) 0%,
+      rgba(8,20,33,.46) 34%,
+      rgba(8,20,33,.14) 62%,
+      transparent 82%),
     linear-gradient(180deg,
-      rgba(10,24,38,.78) 0%,
-      rgba(11,32,57,.62) 34%,
+      rgba(10,24,38,.70) 0%,
+      rgba(11,32,57,.55) 34%,
       rgba(10,24,38,.90) 78%,
       var(--ink-900) 100%);
-}
-/* left-weighted scrim keeps the headline legible over a busy photo */
-.hero--photo .hero__in::before{
-  content:"";position:absolute;inset:0;z-index:-1;pointer-events:none;
-  background:linear-gradient(96deg,rgba(8,20,33,.78) 0%,rgba(8,20,33,.42) 46%,transparent 72%);
 }
 @keyframes streak{to{transform:translateX(-96px)}}
 
