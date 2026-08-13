@@ -324,7 +324,7 @@ strong{color:#E6F1FA;font-weight:600}
 .sec{padding:clamp(3.6rem,7vw,6.4rem) 0;position:relative;scroll-margin-top:88px}
 .sec--tight{padding:clamp(2.6rem,5vw,4.2rem) 0}
 /* every dark section gets a red rake along its foot — anchored, so it scrolls */
-.sec:not(.sec--light):not(.cta)::after{
+.sec:not(.sec--light):not(.cta):not(.sec--hot)::after{
   content:"";position:absolute;left:0;right:0;bottom:0;height:34%;pointer-events:none;z-index:0;
   background:radial-gradient(58% 100% at 88% 100%, rgba(224,27,34,.18), transparent 68%);
 }
@@ -982,6 +982,67 @@ strong{color:#E6F1FA;font-weight:600}
   0%,100%{box-shadow:0 0 0 1px rgba(242,179,0,.30), 0 30px 60px -34px #000}
   50%    {box-shadow:0 0 0 1px rgba(242,179,0,.55), 0 30px 60px -30px #000, 0 0 34px rgba(242,179,0,.22)}
 }
+
+/* ============================================================
+   RED SECTION — the third ground, alongside dark and light.
+   Deep crimson rather than a flat bright red: the brand red stays the accent,
+   this is the room it sits in. Tokens re-pointed so components follow.
+   ============================================================ */
+.sec--hot{
+  --cyan:#FFD0D2;            /* eyebrows / small caps on red */
+  --blue-soft:#FFC2C5;
+  --body:#F2D4D6;
+  --body-dim:#DCACB0;
+  --line:rgba(255,150,155,.26);
+  --line-soft:rgba(255,150,155,.13);
+  color:var(--body);
+  background:
+    radial-gradient(80% 120% at 50% -14%, rgba(224,27,34,.50), transparent 62%),
+    radial-gradient(60% 90% at 88% 108%, rgba(255,90,60,.20), transparent 66%),
+    linear-gradient(168deg,#610C13 0%,#380810 46%,#1C0409 78%,#120307 100%);
+  box-shadow:inset 0 1px 0 rgba(255,190,193,.20);
+}
+.sec--hot::before{
+  content:"";position:absolute;top:0;left:10%;right:10%;height:1px;
+  background:linear-gradient(90deg,transparent,rgba(255,190,193,.7),transparent);
+}
+.sec--hot .lede{color:#F6DEDF}
+.sec--hot strong{color:#fff}
+.sec--hot .muted{color:var(--body-dim)}
+.sec.sec--hot h2{
+  background:linear-gradient(100deg,#FFFFFF 0%,#FFE7E8 46%,#FFB9BD 74%,#FFFFFF 100%);
+  background-size:200% 100%;
+  -webkit-background-clip:text;background-clip:text;
+  color:transparent;-webkit-text-fill-color:transparent;
+}
+.sec--hot .card{
+  background:linear-gradient(158deg,rgba(132,18,25,.52) 0%,rgba(46,7,13,.90) 54%,rgba(22,4,8,.96) 100%);
+  border-color:rgba(255,150,155,.24);
+  box-shadow:inset 0 1px 0 rgba(255,190,193,.16), 0 18px 40px -28px #000;
+}
+.sec--hot .card:hover{
+  border-color:rgba(255,140,146,.65);
+  box-shadow:inset 0 1px 0 rgba(255,205,208,.26), 0 34px 60px -32px #000, 0 0 30px rgba(255,90,96,.28);
+}
+.sec--hot .card::before{background:linear-gradient(90deg,#FFD0D2,var(--gold) 60%,#fff)}
+.sec--hot .card::after{
+  background:radial-gradient(260px 260px at var(--mx) var(--my), rgba(255,170,175,.18), transparent 68%);
+}
+.sec--hot .card__icon{
+  background:linear-gradient(140deg,rgba(255,150,155,.20),rgba(242,179,0,.10));
+  border-color:rgba(255,150,155,.24);
+}
+.sec--hot .card__icon svg{stroke:#FFD0D2}
+.sec--hot .card__price{color:#fff}
+.sec--hot .card--red{border-color:rgba(255,190,193,.42)}
+.sec--hot .card--red:hover{border-color:#FFD0D2}
+.sec--hot .tag{background:var(--gold);color:#2A1E00}
+.sec--hot .tag--cyan{background:#FFD0D2;color:#4A0810}
+.sec--hot .tag--red{background:#fff;color:#8E1017}
+.sec--hot .link-arrow{color:#FFD0D2}
+.sec--hot .link-arrow:hover{color:#fff}
+.sec--hot .btn--ghost{color:#fff;box-shadow:inset 0 0 0 2px rgba(255,190,193,.6)}
+.sec--hot .btn--ghost:hover{background:rgba(255,255,255,.14);box-shadow:inset 0 0 0 2px #fff}
 
 /* ============================================================
    LIGHT SECTIONS
